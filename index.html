@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Functions Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+        h1, h2 {
+            color: #61dafb;
+        }
+        input[type="text"], button {
+            padding: 8px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+        }
+        button {
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Functions Test</h1>
+
+    <h2>Palindrome Check</h2>
+    <input type="text" id="palindromeInput" placeholder="Enter a string...">
+    <button onclick="checkPalindrome()">Check Palindrome</button>
+    <div id="palindromeOutput" class="output"></div>
+
+    <h2>Minimum and Maximum Numbers</h2>
+    <input type="text" id="numbersInput" placeholder="Enter numbers separated by commas...">
+    <button onclick="findMinMax()">Find Min/Max</button>
+    <div id="minMaxOutput" class="output"></div>
+
+    <h2>Missing Number Identification</h2>
+    <div>
+        <input type="text" id="missingInput" placeholder="Enter numbers separated by commas...">
+        <button onclick="findMissingNumber()">Find Missing Number</button>
+    </div>
+    <div id="missingNumberOutput" class="output"></div>
+
+    <script>
+        function checkPalindrome() {
+            const input = document.getElementById('palindromeInput').value;
+            const output = document.getElementById('palindromeOutput');
+            const isPalindrome = palindromeCheck(input);
+            output.textContent = isPalindrome ? 'It is a palindrome!' : 'It is not a palindrome!';
+        }
+
+        function findMinMax() {
+            const input = document.getElementById('numbersInput').value;
+            const output = document.getElementById('minMaxOutput');
+            const numbers = input.split(',').map(Number);
+            const result = findMinMaxNumbers(numbers);
+            output.textContent = `Min: ${result.min}, Max: ${result.max}`;
+        }
+
+        function findMissingNumber() {
+            const output = document.getElementById('missingNumberOutput');
+            const missingNumber = findMissingNumberFromSeries();
+            output.textContent = `Missing number is: ${missingNumber}`;
+        }
+
+        function palindromeCheck(str) {
+            str = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            for (let i = 0; i < Math.floor(str.length / 2); i++) {
+                if (str[i] !== str[str.length - 1 - i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function findMinMaxNumbers(arr) {
+            let min = arr[0];
+            let max = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return { min, max };
+        }
+
+        function findMissingNumberFromSeries() {
+            const series = [11, 12, 14, 15, 16, 18, 19, 20];
+            const input = document.getElementById('missingInput').value;
+            const numbers = input.split(',').map(Number);
+            for (let i = 0; i < series.length; i++) {
+                if (!numbers.includes(series[i])) {
+                    return series[i];
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
